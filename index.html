@@ -162,7 +162,7 @@ $("mealsBody").onclick=function(e){var row=e.target.closest(".row");if(!row)retu
 $("clrS").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw(1)}};
 $("clrP").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw()}};
 function drawGroc(){
- var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan.<br><br><a class="btn" href="#recipes">Add some meals first</a></div>';return}
+ var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan<br><br><a class="btn" href="#recipes">Add some meals first</a></div>';return}
  var h='';
  var A=ING.aisles;for(var a=0;a<A.length;a++){var L=g.by[a];if(!L)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
   var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;rows+='<label class="g'+(d?" done":"")+'"><input type="checkbox" data-k="'+esc(o.k)+'"'+(d?" checked":"")+'><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></label>'});
