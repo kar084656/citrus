@@ -68,6 +68,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl .pn{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:12px;padding:18px;max-width:340px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .mdl h2{margin:0 0 6px;font-size:1.15rem}
 .mdl p{margin:6px 0 12px;color:var(--mut);font-size:.9rem}
+.mdl p:empty{display:none}
 .mdl .qr{background:#fff;border-radius:8px;padding:6px;width:220px;height:220px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center}
 .mdl .qr svg{width:100%;height:100%;display:block}
 .mdl input{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px}
@@ -83,7 +84,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
 <div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><button id="unchk">Clear</button></div></header><main id="grocBody"></main></div>
 <nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
-<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote">Scan with another device, or send it the link. Opening the link loads this plan there.</p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send</button><button id="shareClose">Close</button></div></div></div>
+<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send</button><button id="shareClose">Close</button></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace mine</button><button id="loadMerge">Merge</button><button id="loadNo">Cancel</button></div></div></div>
 <script src="assets/js/qrcode.min.js"></script>
 <script>
@@ -185,7 +186,7 @@ function modal(id,on){$(id).classList.toggle("on",!!on)}
 var pendingShare=null;
 $("shareP").onclick=function(){
  var u=shareURL(),box=$("shareQR");$("shareLink").value=plan.length?u:"";
- box.innerHTML="";box.style.display="";$("shareNote").textContent=plan.length?"Scan with another device, or send it the link. Opening the link loads this plan there.":"Add some meals first, then share them from here.";
+ box.innerHTML="";box.style.display="";$("shareNote").textContent="";
  if(plan.length){try{var q=qrcode(0,"L");q.addData(u);q.make();box.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(e){box.style.display="none";$("shareNote").textContent="This plan is too big for a QR code. Copy the link instead."}}
  else box.style.display="none";
  $("shareCopy").style.display=plan.length?"":"none";$("shareSend").style.display=(plan.length&&navigator.share)?"":"none";
