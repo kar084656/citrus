@@ -62,6 +62,8 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}*::-webkit-scrollbar,ht
 
 .mdl{position:fixed;inset:0;background:rgba(10,8,20,.5);z-index:60;display:none;align-items:center;justify-content:center;padding:16px}
 .mdl.on{display:flex}
+#shareM,#shareM *{text-transform:capitalize}
+#shareM input{text-transform:none}
 .mdl .pn{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:12px;padding:18px;max-width:340px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .mdl h2{margin:0 0 6px;font-size:1.15rem}
 .mdl p{margin:6px 0 12px;color:var(--mut);font-size:.9rem}
@@ -80,7 +82,7 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}*::-webkit-scrollbar,ht
 <div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
 <div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><button id="unchk">Clear</button></div></header><main id="grocBody"></main></div>
 <nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
-<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote">Scan with another device, or send it the link. Opening the link loads this plan there.</p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send…</button><button id="shareClose">Close</button></div></div></div>
+<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote">Scan with another device, or send it the link. Opening the link loads this plan there.</p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send</button><button id="shareClose">Close</button></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace mine</button><button id="loadMerge">Merge</button><button id="loadNo">Cancel</button></div></div></div>
 <script src="assets/js/qrcode.min.js"></script>
 <script>
