@@ -51,6 +51,7 @@ nav a i{position:relative;top:-1px;margin-left:6px;display:inline-block;backgrou
 .g small .mi2.cd{text-decoration:line-through;opacity:.55}
 .sum{color:var(--mut);margin:4px 0 0}.pan{columns:2 220px;color:var(--mut);margin:6px 0}
 .emptyv{text-align:center;color:var(--mut);padding:50px 16px}.emptyv a{color:var(--ac)}
+.emptyv a.btn{display:inline-flex;align-items:center;justify-content:center;height:40px;box-sizing:border-box;padding:0 14px;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;text-decoration:none;font-size:inherit;cursor:pointer}
 @media print{header,nav,.vh button,.g input{display:none}main{padding:0}body{background:#fff;color:#000}}
 #rm{position:fixed;inset:0;z-index:50;background:rgba(10,6,24,.55);display:none;align-items:center;justify-content:center;padding:3vh 2vw}#rm.open{display:flex}
 #rw{position:relative;width:min(880px,100%);height:100%;background:var(--bg);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.45);overflow:hidden}
@@ -135,7 +136,7 @@ function route(){var h=(location.hash||"#recipes").slice(1);view(h=="meals"||h==
 window.addEventListener("hashchange",route);
 $("t-recipes").onclick=function(e){e.preventDefault();location.hash="recipes"};
 function drawMeals(){
- var el=$("mealsBody");if(!plan.length){el.innerHTML='<div class="emptyv">No meals planned yet.<br>Tap <b>+</b> on any recipe card to add it to this week.<br><br><a href="#recipes">Browse recipes</a></div>';return}
+ var el=$("mealsBody");if(!plan.length){el.innerHTML='<div class="emptyv">No meals planned yet.<br>Tap <b>+</b> on any recipe card to add it to this week.<br><br><a class="btn" href="#recipes">Browse recipes</a></div>';return}
  var h='';
  plan.forEach(function(p){var r=BYID[p.id];
   h+='<div class="row'+(p.c?' done':'')+'" data-id="'+p.id+'"><img src="images/'+r.id+'.jpg" alt=""><a class="nm" href="recipes/'+esc(r.f)+'"><span class="t">'+esc(r.n)+'</span><small>'+r.m+' min · '+r.k+' kcal · '+r.p+' g protein per serving</small></a><span class="step"><button class="mi">−</button><span>'+p.s+' servings</span><button class="pl">+</button></span><button class="cook'+(p.c?' on':'')+'" aria-label="'+(p.c?'Mark As Not Cooked':'Mark As Cooked')+'" aria-pressed="'+(p.c?'true':'false')+'" title="'+(p.c?'Cooked':'Mark As Cooked')+'">&#10003;</button><button class="rm" aria-label="Remove">×</button></div>'});
@@ -145,7 +146,7 @@ $("mealsBody").onclick=function(e){var row=e.target.closest(".row");if(!row)retu
 $("clrS").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw(1)}};
 $("clrP").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw()}};
 function drawGroc(){
- var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan.<br><br><a href="#recipes">Add some meals first</a></div>';return}
+ var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan.<br><br><a class="btn" href="#recipes">Add some meals first</a></div>';return}
  var h='';
  var A=ING.aisles;for(var a=0;a<A.length;a++){var L=g.by[a];if(!L)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
   var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;rows+='<label class="g'+(d?" done":"")+'"><input type="checkbox" data-k="'+esc(o.k)+'"'+(d?" checked":"")+'><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></label>'});
