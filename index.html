@@ -152,7 +152,7 @@ function route(){var h=(location.hash||"#recipes").slice(1);if(h.indexOf("s=")==
 window.addEventListener("hashchange",route);
 $("t-recipes").onclick=function(e){e.preventDefault();location.hash="recipes"};
 function drawMeals(){
- var el=$("mealsBody");if(!plan.length){el.innerHTML='<div class="emptyv">No meals planned yet.<br><br><a class="btn" href="#recipes">Browse recipes</a></div>';return}
+ var el=$("mealsBody");if(!plan.length){el.innerHTML='<div class="emptyv">No meals planned yet<br><br><a class="btn" href="#recipes">Browse recipes</a></div>';return}
  var h='';
  plan.forEach(function(p){var r=BYID[p.id];
   h+='<div class="row'+(p.c?' done':'')+'" data-id="'+p.id+'"><img src="images/'+r.id+'.jpg" alt=""><a class="nm" href="recipes/'+esc(r.f)+'"><span class="t">'+esc(r.n)+'</span><small>'+r.m+' min · '+r.k+' kcal · '+r.p+' g protein per serving</small></a><span class="step"><button class="mi">−</button><span>'+p.s+' servings</span><button class="pl">+</button></span><button class="cook'+(p.c?' on':'')+'" aria-label="'+(p.c?'Mark As Not Cooked':'Mark As Cooked')+'" aria-pressed="'+(p.c?'true':'false')+'" title="'+(p.c?'Cooked':'Mark As Cooked')+'">&#10003;</button><button class="rm" aria-label="Remove">×</button></div>'});
