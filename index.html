@@ -84,7 +84,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
 <div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><button id="unchk">Clear</button></div></header><main id="grocBody"></main></div>
 <nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
-<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send</button><button id="shareClose">Close</button></div></div></div>
+<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"><div class="acts"><button id="shareCopy">Copy link</button><button id="shareSend" style="display:none">Send</button><button id="shareDl">Download</button><button id="shareClose">Close</button></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace</button><button id="loadMerge">Merge</button><button id="loadNo">Cancel</button></div></div></div>
 <script src="assets/js/qrcode.min.js"></script>
 <script>
@@ -189,12 +189,17 @@ $("shareP").onclick=function(){
  box.innerHTML="";box.style.display="";$("shareNote").textContent="";
  if(plan.length){try{var q=qrcode(0,"L");q.addData(u);q.make();box.innerHTML=q.createSvgTag({cellSize:4,margin:0,scalable:true})}catch(e){box.style.display="none";$("shareNote").textContent="This plan is too big for a QR code. Copy the link instead."}}
  else box.style.display="none";
- $("shareCopy").style.display=plan.length?"":"none";$("shareSend").style.display=(plan.length&&navigator.share)?"":"none";
+ $("shareCopy").style.display=plan.length?"":"none";$("shareDl").style.display=box.firstChild&&box.firstChild.nodeName.toLowerCase()=="svg"?"":"none";$("shareSend").style.display=(plan.length&&navigator.share)?"":"none";
  modal("shareM",1)};
 $("shareClose").onclick=function(){modal("shareM",0)};
 $("shareM").onclick=function(e){if(e.target===this)modal("shareM",0)};
 $("shareCopy").onclick=function(){var b=this,i=$("shareLink"),done=function(){b.style.boxSizing="border-box";b.style.width=b.getBoundingClientRect().width+"px";b.textContent="Copied";setTimeout(function(){b.textContent="Copy link";b.style.width="";b.style.boxSizing=""},1500)};
  try{navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand("copy");done()})}catch(e){try{i.select();document.execCommand("copy");done()}catch(e2){}}};
+$("shareDl").onclick=function(){var svg=$("shareQR").querySelector("svg");if(!svg)return;
+ try{var xml=new XMLSerializer().serializeToString(svg).replace("<svg",'<svg width="600" height="600"'),img=new Image();
+  img.onload=function(){var c=document.createElement("canvas");c.width=c.height=680;var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,680,680);x.drawImage(img,40,40,600,600);
+   c.toBlob(function(bl){var a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download="citrus-meal-plan-qr.png";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},"image/png")};
+  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml)}catch(e){}};
 $("shareSend").onclick=function(){try{navigator.share({title:"Citrus meal plan",url:$("shareLink").value})}catch(e){}};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
  var p=[];d.p.slice(0,60).forEach(function(x){if(x&&BYID[x[0]]&&idx2(p,x[0])<0)p.push({id:x[0],s:Math.max(1,Math.min(24,x[1]|0||4)),d:0,c:!!x[2]})});
