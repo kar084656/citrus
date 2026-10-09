@@ -191,7 +191,7 @@ $("shareP").onclick=function(){
  modal("shareM",1)};
 $("shareClose").onclick=function(){modal("shareM",0)};
 $("shareM").onclick=function(e){if(e.target===this)modal("shareM",0)};
-$("shareCopy").onclick=function(){var b=this,i=$("shareLink"),done=function(){b.textContent="Copied";setTimeout(function(){b.textContent="Copy link"},1500)};
+$("shareCopy").onclick=function(){var b=this,i=$("shareLink"),done=function(){b.style.boxSizing="border-box";b.style.width=b.getBoundingClientRect().width+"px";b.textContent="Copied";setTimeout(function(){b.textContent="Copy link";b.style.width="";b.style.boxSizing=""},1500)};
  try{navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand("copy");done()})}catch(e){try{i.select();document.execCommand("copy");done()}catch(e2){}}};
 $("shareSend").onclick=function(){try{navigator.share({title:"Citrus meal plan",url:$("shareLink").value})}catch(e){}};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
