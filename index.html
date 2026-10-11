@@ -28,9 +28,10 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 main{padding-bottom:110px}
 .view{display:none}.view.on{display:block}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:560px;z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
-nav a{flex:1;text-align:center;padding:16px 4px 15px;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
-nav a i[hidden]{display:none}nav a.on{color:var(--ac)}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:560px;z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18);padding:4px}
+nav a{flex:1;text-align:center;padding:12px 4px 11px;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
+nav a i[hidden]{display:none}nav a.on{color:var(--ac);background:#fff;border-radius:22px;box-shadow:0 0 0 1px var(--bd),0 2px 8px rgba(40,25,90,.16)}
+@media(prefers-color-scheme:dark){nav a.on{background:#2d2949}}
 nav a i{position:relative;top:-1px;margin-left:6px;display:inline-block;background:var(--ac);color:var(--acf);border-radius:99px;font-style:normal;font-size:.7rem;min-width:18px;padding:0 5px;line-height:18px}
 .add{position:absolute;top:6px;right:6px;border-radius:50%;width:34px;height:34px;padding:0;display:flex;align-items:center;justify-content:center;line-height:0;background:rgba(255,255,255,.92);color:#222;border:0;font-weight:600}.add.in{background:var(--ac);color:var(--acf)}
 .day{margin:18px 0 6px;font-size:.95rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
