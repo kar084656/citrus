@@ -28,9 +28,11 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 main{padding-bottom:110px}
 .view{display:none}.view.on{display:block}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:560px;z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
-nav a{z-index:1;flex:1;text-align:center;padding:16px 4px 15px;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 24px);z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
+nav a{z-index:1;flex:none;text-align:center;padding:16px 12px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
 nav a i[hidden]{display:none}nav a.on{color:var(--ac)}
+@media(max-width:380px){nav a{padding-left:8px;padding-right:8px}}
+@media(max-width:340px){nav a{padding-left:6px;padding-right:6px;font-size:.9rem}}
 nav::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w,0);transform:translateX(var(--x,0));background:#ebe5fb;border-radius:22px;z-index:0;pointer-events:none}
 nav.ready::before{transition:transform .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1)}
 @media(prefers-color-scheme:dark){nav::before{background:#2d2949}}
