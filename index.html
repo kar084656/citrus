@@ -55,7 +55,10 @@ nav a i{position:relative;top:-1px;margin-left:6px;display:inline-block;backgrou
 .row.done img{opacity:.55}
 .aisle{margin:20px 0 6px;font-size:1rem}
 .g{display:flex;gap:10px;align-items:flex-start;padding:8px;margin-bottom:8px;background:var(--card);border:1px solid var(--bd);border-radius:12px}.g input{margin-top:2.6px;width:18px;height:18px;accent-color:var(--ac);flex:none}
-.g.done .gn,.g.done .gq{text-decoration:line-through;color:var(--mut)}.g .gq{min-width:6.5em;font-weight:600;flex:none;box-sizing:content-box}.g small{display:block;color:var(--mut);font-size:.8rem}
+.g.done .gn,.g.done .gq{text-decoration:line-through;color:var(--mut)}.g .gq{min-width:6.5em;font-weight:600;flex:none;box-sizing:content-box}.g .gn{order:1;flex:1;min-width:0}
+.g .gq{order:2;text-align:right}
+.g input{order:3}
+.g small{display:block;color:var(--mut);font-size:.8rem}
 .g small .mi2{display:block}
 .g small .mi2+.mi2{margin-top:3px}
 .g small .mi2.cd{text-decoration:line-through;opacity:.55}
