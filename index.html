@@ -128,6 +128,7 @@ if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if
 $("grid").onclick=function(e){var a=e.target.closest(".add");if(a){togglePlan(a.dataset.id);var on=inPlan(a.dataset.id);a.classList.toggle("in",on);a.innerHTML=on?CK:PLUS;return}};
 $("more").onclick=more;
 $("q").oninput=function(){st.q=this.value.toLowerCase().trim();st.lim=60;draw(1)};
+$("q").onkeydown=function(e){if(e.key==="Enter"||e.keyCode===13){e.preventDefault();this.blur()}};
 $("shuf").onclick=function(){R.forEach(function(r){r.r=Math.random()});st.sort="rand";st.lim=60;draw(1)};
 $("clr").onclick=function(){st.q="";$("q").value="";st.sort="az";st.lim=60;draw(1)};
 
