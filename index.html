@@ -88,9 +88,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
 </style></head><body>
-<div id="v-recipes" class="view on"><header><div class="bar"><h1>Citrus</h1>
+<div id="v-recipes" class="view on"><header><div class="bar">
 <span class="qw"><input id="q" type="search" placeholder="Search…" aria-label="Search"><button id="qx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span>
-<button id="shuf">Shuffle</button><button id="clr">A-Z</button><button id="clrS">Clear</button>
+<button id="shuf">Shuffle</button><button id="clr">A-Z</button>
 </div>
 </header>
 <main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
@@ -180,7 +180,6 @@ function drawMeals(){
  el.innerHTML=h}
 $("mealsBody").onclick=function(e){var row=e.target.closest(".row");if(!row)return;var i=idx(row.dataset.id),p=plan[i];
  if(e.target.closest(".rm"))plan.splice(i,1);else if(e.target.closest(".pl"))p.s=Math.min(24,p.s+1);else if(e.target.closest(".cook"))p.c=!p.c;else if(e.target.closest(".mi"))p.s=Math.max(1,p.s-1);else return;saveP();drawMeals()};
-$("clrS").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw(1)}};
 $("clrP").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw()}};
 function drawGroc(){
  var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan<br><br><a class="btn" href="#recipes">Add some meals first</a></div>';return}
