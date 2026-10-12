@@ -216,7 +216,7 @@ $("shareCopy").onclick=function(){var b=this,i=$("shareLink"),done=function(){b.
 $("shareDl").onclick=function(){var svg=$("shareQR").querySelector("svg");if(!svg)return;
  try{var xml=new XMLSerializer().serializeToString(svg).replace("<svg",'<svg width="600" height="600"'),img=new Image();
   img.onload=function(){var c=document.createElement("canvas");c.width=c.height=680;var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,680,680);x.drawImage(img,40,40,600,600);
-   c.toBlob(function(bl){var a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download="citrus-meal-plan-qr.png";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},"image/png")};
+   c.toBlob(function(bl){var touch=window.matchMedia&&matchMedia("(hover:none),(pointer:coarse)").matches;if(touch&&navigator.canShare&&navigator.share){try{var f=new File([bl],"citrus-meal-plan-qr.png",{type:"image/png"});if(navigator.canShare({files:[f]})){navigator.share({files:[f]}).catch(function(){});return}}catch(e){}}var a=document.createElement("a");a.href=URL.createObjectURL(bl);a.download="citrus-meal-plan-qr.png";document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},2000)},"image/png")};
   img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml)}catch(e){}};
 $("shareSend").onclick=function(){try{navigator.share({title:"Citrus meal plan",url:$("shareLink").value})}catch(e){}};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
