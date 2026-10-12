@@ -18,7 +18,10 @@ main{max-width:1200px;margin:0 auto;padding:14px 16px 60px}
 .card{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
 .card a{color:inherit;text-decoration:none;display:flex;flex-direction:column;flex:1}
 .card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--chip)}
-header,header *,.vh,.vh *,header input::placeholder{text-transform:capitalize}header input{text-transform:none}header #q{flex:1 1 60px;min-width:0}header #shuf,header #clr,header #clrS{flex:none;padding-left:7px;padding-right:7px}header .bar{gap:6px}header #q,header #shuf,header #clr,header #clrS,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{height:40px;box-sizing:border-box;padding-top:0;padding-bottom:0}
+header,header *,.vh,.vh *,header input::placeholder{text-transform:capitalize}header input{text-transform:none}header .qw{position:relative;display:flex;flex:1 1 60px;min-width:0}
+header #q{flex:1 1 auto;width:100%;min-width:0}
+#qx{display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);width:20px;height:20px;min-width:0;padding:0;border:0;border-radius:50%;background:rgba(120,118,140,.6);align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+@media(hover:none),(pointer:coarse){header #q{padding-right:34px}#qx:not([hidden]){display:flex}#q::-webkit-search-cancel-button{-webkit-appearance:none;display:none}}header #shuf,header #clr,header #clrS{flex:none;padding-left:7px;padding-right:7px}header .bar{gap:6px}header #q,header #shuf,header #clr,header #clrS,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{height:40px;box-sizing:border-box;padding-top:0;padding-bottom:0}
 header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{flex:none;padding-left:7px;padding-right:7px}
 header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitalize}.card .t{padding:9px 11px 4px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .m{padding:0 11px 10px;color:var(--mut);font-size:.82rem;margin-top:auto}
@@ -83,7 +86,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
 </style></head><body>
 <div id="v-recipes" class="view on"><header><div class="bar"><h1>Citrus</h1>
-<input id="q" type="search" placeholder="Search…" aria-label="Search">
+<span class="qw"><input id="q" type="search" placeholder="Search…" aria-label="Search"><button id="qx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span>
 <button id="shuf">Shuffle</button><button id="clr">A-Z</button><button id="clrS">Clear</button>
 </div>
 </header>
@@ -127,10 +130,13 @@ function draw(top){
 if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&$("v-recipes").classList.contains("on"))more()},{rootMargin:"900px"});io.observe($("more"))}
 $("grid").onclick=function(e){var a=e.target.closest(".add");if(a){togglePlan(a.dataset.id);var on=inPlan(a.dataset.id);a.classList.toggle("in",on);a.innerHTML=on?CK:PLUS;return}};
 $("more").onclick=more;
-$("q").oninput=function(){st.q=this.value.toLowerCase().trim();st.lim=60;draw(1)};
+function qSync(){$("qx").hidden=!$("q").value}
+$("q").oninput=function(){st.q=this.value.toLowerCase().trim();st.lim=60;qSync();draw(1)};
+$("qx").onmousedown=function(e){e.preventDefault()};
+$("qx").onclick=function(){var q=$("q");q.value="";st.q="";st.lim=60;qSync();draw(1);q.focus()};
 $("q").onkeydown=function(e){if(e.key==="Enter"||e.keyCode===13){e.preventDefault();this.blur()}};
 $("shuf").onclick=function(){R.forEach(function(r){r.r=Math.random()});st.sort="rand";st.lim=60;draw(1)};
-$("clr").onclick=function(){st.q="";$("q").value="";st.sort="az";st.lim=60;draw(1)};
+$("clr").onclick=function(){st.q="";$("q").value="";qSync();st.sort="az";st.lim=60;draw(1)};
 
 /* ---- meal plan + groceries ---- */
 var BYID={};R.forEach(function(r){BYID[r.id]=r});
