@@ -182,7 +182,7 @@ $("clrP").onclick=function(){if(plan.length){plan=[];saveP();drawMeals();draw()}
 function drawGroc(){
  var g=groc(),el=$("grocBody");if(!plan.length){el.innerHTML='<div class="emptyv">Your grocery list builds itself from your meal plan<br><br><a class="btn" href="#recipes">Add some meals first</a></div>';return}
  var h='';
- var A=[["Produce",[0]],["Meat & seafood",[1]],["Dairy & eggs",[2]],["Seasonings, oils, & condiments",[6,8]],["Other",[3,4,5,7]]];for(var a=0;a<A.length;a++){var L=[];A[a][1].forEach(function(x){if(g.by[x])L=L.concat(g.by[x])});if(!L.length)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
+ var A=[["Produce",[0]],["Meat & seafood",[1]],["Dairy & eggs",[2]],["Pantry items",[6,8]],["Other",[3,4,5,7]]];for(var a=0;a<A.length;a++){var L=[];A[a][1].forEach(function(x){if(g.by[x])L=L.concat(g.by[x])});if(!L.length)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
   var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;rows+='<label class="g'+(d?" done":"")+'"><input type="checkbox" data-k="'+esc(o.k)+'"'+(d?" checked":"")+'><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></label>'});
   if(rows)h+='<h3 class="aisle">'+A[a][0]+'</h3>'+rows}
  el.innerHTML=h;alignQ()}
