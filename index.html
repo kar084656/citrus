@@ -77,7 +77,7 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}*::-webkit-scrollbar,ht
 .mdl.on{display:flex}
 button:disabled{opacity:.45;cursor:not-allowed}
 #shareM,#shareM *,#loadM,#loadM *{text-transform:capitalize}
-#shareM input{text-transform:none}
+#shareM input{text-transform:none}#shareLink{cursor:pointer}
 .mdl .pn{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:12px;padding:18px;max-width:340px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .mdl h2{margin:0 0 6px;font-size:1.15rem}
 .mdl p{margin:6px 0 12px;color:var(--mut);font-size:.9rem}
@@ -217,6 +217,7 @@ function qrPng(svg,box){try{var xml=svg.replace("<svg",'<svg width="600" height=
 function copyLink(){var i=$("shareLink"),n=$("shareNote"),done=function(){n.textContent="Link copied";setTimeout(function(){n.textContent=""},1500)};
  try{navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand("copy");done()})}catch(e){try{i.select();document.execCommand("copy");done()}catch(e2){}}}
 $("shareQR").onclick=function(e){if(e.target.tagName=="IMG")copyLink()};
+$("shareLink").onclick=function(){this.select();copyLink()};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
  var p=[];d.p.slice(0,60).forEach(function(x){if(x&&BYID[x[0]]&&idx2(p,x[0])<0)p.push({id:x[0],s:Math.max(1,Math.min(24,x[1]|0||4)),d:0,c:!!x[2]})});
  return {p:p,k:Array.isArray(d.k)?d.k.slice(0,500):[]}}catch(e){return null}}
