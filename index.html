@@ -178,7 +178,7 @@ function drawGroc(){
  var h='';
  var A=ING.aisles;for(var a=0;a<A.length;a++){var L=g.by[a];if(!L)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
   var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;rows+='<label class="g'+(d?" done":"")+'"><input type="checkbox" data-k="'+esc(o.k)+'"'+(d?" checked":"")+'><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></label>'});
-  h+=rows}
+  if(rows)h+='<h3 class="aisle">'+A[a]+'</h3>'+rows}
  el.innerHTML=h;alignQ()}
 function alignQ(){var el=$("grocBody"),q=el.querySelectorAll(".gq");if(!q.length||!el.offsetWidth)return;var w=0,i;for(i=0;i<q.length;i++){q[i].style.width="auto"}for(i=0;i<q.length;i++){w=Math.max(w,q[i].getBoundingClientRect().width)}w=Math.min(w,el.clientWidth*.42);for(i=0;i<q.length;i++){q[i].style.width=w+"px"}}
 window.addEventListener("resize",alignQ);
