@@ -77,7 +77,7 @@ html,body,*{scrollbar-width:none;-ms-overflow-style:none}*::-webkit-scrollbar,ht
 .mdl.on{display:flex}
 button:disabled{opacity:.45;cursor:not-allowed}
 #shareM,#shareM *,#loadM,#loadM *{text-transform:capitalize}
-#shareM input{text-transform:none}#shareLink{cursor:pointer}
+#shareM .tip{margin:12px 0 0;text-align:center;color:var(--mut);font-size:.85rem;line-height:1.5}#shareM .tip:empty{display:none}
 .mdl .pn{background:var(--card);color:var(--fg);border:1px solid var(--bd);border-radius:12px;padding:18px;max-width:340px;width:100%;max-height:92vh;overflow:auto;text-align:center}
 .mdl h2{margin:0 0 6px;font-size:1.15rem}
 .mdl p{margin:6px 0 12px;color:var(--mut);font-size:.9rem}
@@ -97,7 +97,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 <div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
 <div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><button id="unchk">Clear</button></div></header><main id="grocBody"></main></div>
 <nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
-<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><input id="shareLink" type="text" readonly aria-label="Share link"></div></div>
+<div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><div class="tip" id="shareTip"><div>Click QR Code To Copy Link</div><div>Right-Click QR Code To Download Image</div></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace</button><button id="loadMerge">Merge</button></div></div></div>
 <script src="assets/js/qrcode.min.js"></script>
 <script>
@@ -202,11 +202,11 @@ function shareCode(){var k=[];Object.keys(chk).forEach(function(x){k.push([h32(x
  return b64e(JSON.stringify({p:plan.map(function(p){return [p.id,p.s,p.c?1:0]}),k:k}))}
 function shareURL(){return location.href.split("#")[0]+"#s="+shareCode()}
 function modal(id,on){$(id).classList.toggle("on",!!on)}
-var pendingShare=null;
+var pendingShare=null,shareU="";
 $("shareP").onclick=function(){
- var u=shareURL(),box=$("shareQR");$("shareLink").value=plan.length?u:"";
+ var u=shareURL(),box=$("shareQR");shareU=plan.length?u:"";$("shareTip").style.display=plan.length?"":"none";
  box.innerHTML="";box.style.display="";$("shareNote").textContent="";
- if(plan.length){try{var q=qrcode(0,"L");q.addData(u);q.make();qrPng(q.createSvgTag({cellSize:4,margin:0,scalable:true}),box)}catch(e){box.style.display="none";$("shareNote").textContent="This plan is too big for a QR code. Copy the link instead."}}
+ if(plan.length){try{var q=qrcode(0,"L");q.addData(u);q.make();qrPng(q.createSvgTag({cellSize:4,margin:0,scalable:true}),box)}catch(e){box.style.display="none";$("shareNote").textContent="This plan is too big for a QR code"}}
  else box.style.display="none";
  modal("shareM",1)};
 $("shareM").onclick=function(e){if(e.target===this)modal("shareM",0)};
@@ -214,10 +214,9 @@ function qrPng(svg,box){try{var xml=svg.replace("<svg",'<svg width="600" height=
  img.onload=function(){var c=document.createElement("canvas");c.width=c.height=680;var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,680,680);x.drawImage(img,40,40,600,600);
   var o=new Image();o.alt="QR code. Click to copy the link.";o.title="Click to copy link";o.src=c.toDataURL("image/png");box.innerHTML="";box.appendChild(o)};
  img.src="data:image/svg+xml;charset=utf-8,"+encodeURIComponent(xml)}catch(e){}}
-function copyLink(){var i=$("shareLink"),n=$("shareNote"),done=function(){n.textContent="Link copied";setTimeout(function(){n.textContent=""},1500)};
- try{navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand("copy");done()})}catch(e){try{i.select();document.execCommand("copy");done()}catch(e2){}}}
+function copyLink(){var i=document.createElement("textarea"),n=$("shareNote");i.value=shareU;i.style.cssText="position:fixed;opacity:0;top:0";document.body.appendChild(i);var cl=function(){i.remove()},done=function(){n.textContent="Link copied";setTimeout(function(){n.textContent=""},1500)};
+ try{navigator.clipboard.writeText(i.value).then(done,function(){i.select();document.execCommand("copy");done()})}catch(e){try{i.select();document.execCommand("copy");done()}catch(e2){}}setTimeout(cl,800)}
 $("shareQR").onclick=function(e){if(e.target.tagName=="IMG")copyLink()};
-$("shareLink").onclick=function(){this.select();copyLink()};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
  var p=[];d.p.slice(0,60).forEach(function(x){if(x&&BYID[x[0]]&&idx2(p,x[0])<0)p.push({id:x[0],s:Math.max(1,Math.min(24,x[1]|0||4)),d:0,c:!!x[2]})});
  return {p:p,k:Array.isArray(d.k)?d.k.slice(0,500):[]}}catch(e){return null}}
