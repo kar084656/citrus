@@ -24,7 +24,6 @@ header #q,header #gq{flex:1 1 auto;width:100%;min-width:0}
 header #impP,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{flex:none;padding-left:7px;padding-right:7px}
 header.mh h1{flex:1}#h-meals .bar{justify-content:center;gap:9px;flex-wrap:nowrap}#h-meals #impP,#h-meals #shareP,#h-meals #clrP{flex:1 1 0;min-width:0}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitalize}.card .t{padding:9px 11px 4px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .m{padding:0 11px 10px;color:var(--mut);font-size:.82rem;margin-top:auto}
-.card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;opacity:0;z-index:2}.card:hover::after{opacity:1}
 .add svg{display:block}
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
@@ -87,9 +86,6 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl input{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px}
 .mdl textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px;height:84px;resize:none}#impM .or{margin:0 0 10px;font-size:.85rem;color:var(--mut)}#impMsg{min-height:1.2em;margin:10px 0 0;font-size:.85rem;color:var(--mut)}#impMsg.err{color:#c0392b}.mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
-nav header button{position:relative}
-nav header button::after,nav header .qw::after,nav .tabs a::after{content:"";position:absolute;inset:-1px;border-radius:13px;padding:1px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;opacity:0;z-index:2}
-@media(hover:hover){nav header button:hover::after,nav header .qw:hover::after,nav .tabs a:hover::after{opacity:1}}
 </style></head><body>
 <div id="v-recipes" class="view on">
 <main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
