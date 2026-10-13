@@ -143,10 +143,10 @@ $("clr").onclick=function(){st.q="";$("q").value="";qSync();st.sort="az";st.lim=
 
 /* ---- meal plan + groceries ---- */
 var BYID={};R.forEach(function(r){BYID[r.id]=r});
-var DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],plan=[],chk={},hideDone=false;
-try{plan=JSON.parse(localStorage.getItem("mealime-plan")||"[]");chk=JSON.parse(localStorage.getItem("mealime-chk")||"{}")}catch(e){}
+var DAYS=["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],plan=[],hideDone=false;
+try{plan=JSON.parse(localStorage.getItem("mealime-plan")||"[]")}catch(e){}
 plan=plan.filter(function(p){return BYID[p.id]});
-function saveP(){try{localStorage.setItem("mealime-plan",JSON.stringify(plan));localStorage.setItem("mealime-chk",JSON.stringify(chk))}catch(e){}badges()}
+function saveP(){try{localStorage.setItem("mealime-plan",JSON.stringify(plan));localStorage.removeItem("mealime-chk")}catch(e){}badges()}
 function idx(id){for(var i=0;i<plan.length;i++)if(plan[i].id==id)return i;return -1}
 function inPlan(id){return idx(id)>=0}
 function togglePlan(id){var i=idx(id);if(i>=0)plan.splice(i,1);else plan.push({id:id,s:4,d:""});saveP()}
@@ -193,11 +193,9 @@ function alignQ(){var el=$("grocBody"),q=el.querySelectorAll(".gq");if(!q.length
 window.addEventListener("resize",alignQ);
 
 /* ---- share / load plan (no server: state travels in the link) ---- */
-function h32(s){var h=2166136261;for(var i=0;i<s.length;i++){h^=s.charCodeAt(i);h=Math.imul(h,16777619)}return (h>>>0).toString(36)}
 function b64e(t){return btoa(unescape(encodeURIComponent(t))).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"")}
 function b64d(t){t=t.replace(/-/g,"+").replace(/_/g,"/");while(t.length%4)t+="=";return decodeURIComponent(escape(atob(t)))}
-function shareCode(){var k=[];Object.keys(chk).forEach(function(x){k.push([h32(x),chk[x]?1:0])});
- return b64e(JSON.stringify({p:plan.map(function(p){return [p.id,p.s,p.c?1:0]}),k:k}))}
+function shareCode(){return b64e(JSON.stringify({p:plan.map(function(p){return [p.id,p.s,p.c?1:0]})}))}
 function shareURL(){return location.href.split("#")[0]+"#s="+shareCode()}
 function modal(id,on){$(id).classList.toggle("on",!!on)}
 var pendingShare=null,shareU="";
@@ -217,15 +215,13 @@ function copyLink(){var i=document.createElement("textarea"),n=$("shareFlash");i
 $("shareQR").onclick=function(e){if(e.target.tagName=="IMG")copyLink()};
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
  var p=[];d.p.slice(0,60).forEach(function(x){if(x&&BYID[x[0]]&&idx2(p,x[0])<0)p.push({id:x[0],s:Math.max(1,Math.min(24,x[1]|0||4)),d:0,c:!!x[2]})});
- return {p:p,k:Array.isArray(d.k)?d.k.slice(0,500):[]}}catch(e){return null}}
+ return {p:p}}catch(e){return null}}
 function idx2(a,id){for(var i=0;i<a.length;i++)if(a[i].id==id)return i;return -1}
-function applyChecks(k,over){var m={};var g=groc();Object.keys(g.by).forEach(function(a){g.by[a].forEach(function(o){m[h32(o.k)]=o.k})});
- k.forEach(function(x){var key=m[x[0]];if(key&&(over||chk[key]===undefined))chk[key]=x[1]?1:0})}
 function offerLoad(code){var d=parseShare(code);if(!d||!d.p.length){return}
  pendingShare=d;var n=d.p.length;$("loadNote").textContent="";
  $("loadRep").textContent=plan.length?"Replace":"Load";$("loadMerge").style.display=plan.length?"":"none";modal("loadM",1)}
-$("loadRep").onclick=function(){var d=pendingShare;if(d){plan=d.p.map(function(p){return {id:p.id,s:p.s,d:0,c:p.c}});chk={};applyChecks(d.k,true);saveP();drawMeals();draw()}pendingShare=null;modal("loadM",0);location.hash="meals"};
-$("loadMerge").onclick=function(){var d=pendingShare;if(d){d.p.forEach(function(p){var i=idx(p.id);if(i<0)plan.push({id:p.id,s:p.s,d:0,c:p.c});else if(p.c)plan[i].c=true});applyChecks(d.k,false);saveP();drawMeals();draw()}pendingShare=null;modal("loadM",0);location.hash="meals"};
+$("loadRep").onclick=function(){var d=pendingShare;if(d){plan=d.p.map(function(p){return {id:p.id,s:p.s,d:0,c:p.c}});saveP();drawMeals();draw()}pendingShare=null;modal("loadM",0);location.hash="meals"};
+$("loadMerge").onclick=function(){var d=pendingShare;if(d){d.p.forEach(function(p){var i=idx(p.id);if(i<0)plan.push({id:p.id,s:p.s,d:0,c:p.c});else if(p.c)plan[i].c=true});saveP();drawMeals();draw()}pendingShare=null;modal("loadM",0);location.hash="meals"};
 $("loadM").onclick=function(e){if(e.target===this){pendingShare=null;modal("loadM",0)}};
 badges();route();
 draw();
