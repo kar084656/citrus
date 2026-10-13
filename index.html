@@ -216,20 +216,20 @@ function copyLink(){var i=document.createElement("textarea"),n=$("shareFlash");i
 $("shareQR").onclick=function(e){if(e.target.tagName=="IMG")copyLink()};
 function shareCodeFrom(t){var m=/#s=([A-Za-z0-9_\-=]+)/.exec(t||"");return m?m[1]:null}
 function impMsg(t,err){var m=$("impMsg");m.textContent=t||"";m.className=err?"err":""}
-function impTry(code){var d=code&&parseShare(code);if(!d||!d.p.length){impMsg("No meal plan found",1);return}
+function impTry(code){var d=code&&parseShare(code);if(!d||!d.p.length){impMsg("No Meal Plan Found",1);return}
  modal("impM",0);offerLoad(code)}
 function loadJsQR(cb){if(window.jsQR)return cb();var s=document.createElement("script");s.src="assets/js/jsqr.min.js";s.onload=cb;s.onerror=function(){impMsg("Could not read the image",1)};document.head.appendChild(s)}
 function impImage(f){if(!f)return;impMsg("Reading image…");var u=URL.createObjectURL(f),im=new Image();
  im.onload=function(){loadJsQR(function(){try{var best=null,w0=im.naturalWidth,h0=im.naturalHeight,sc=[1,.5,.25];
   for(var i=0;i<sc.length&&!best;i++){var k=Math.min(sc[i],1400/Math.max(w0,h0));var w=Math.max(60,Math.round(w0*k)),h=Math.max(60,Math.round(h0*k));var c=document.createElement("canvas");c.width=w;c.height=h;var x=c.getContext("2d");x.fillStyle="#fff";x.fillRect(0,0,w,h);x.drawImage(im,0,0,w,h);best=jsQR(x.getImageData(0,0,w,h).data,w,h,{inversionAttempts:"attemptBoth"})}
-  URL.revokeObjectURL(u);if(!best){impMsg("No QR code found in that image",1);return}
-  var code=shareCodeFrom(best.data);if(!code){impMsg("No meal plan found",1);return}impTry(code)}catch(e){impMsg("Could not read the image",1)}})};
+  URL.revokeObjectURL(u);if(!best){impMsg("No QR Code Found In That Image",1);return}
+  var code=shareCodeFrom(best.data);if(!code){impMsg("No Meal Plan Found",1);return}impTry(code)}catch(e){impMsg("Could not read the image",1)}})};
  im.onerror=function(){URL.revokeObjectURL(u);impMsg("Could not read the image",1)};im.src=u}
 $("impP").onclick=function(){$("impTxt").value="";impMsg("");$("impFile").value="";modal("impM",1)};
 $("impM").onclick=function(e){if(e.target===this)modal("impM",0)};
 $("impImg").onclick=function(){$("impFile").click()};
 $("impFile").onchange=function(){impImage(this.files&&this.files[0])};
-$("impTxt").oninput=function(){var v=this.value.trim();if(!v){impMsg("");return}var c=shareCodeFrom(v);if(c)impTry(c);else impMsg("No meal plan found",1)};
+$("impTxt").oninput=function(){var v=this.value.trim();if(!v){impMsg("");return}var c=shareCodeFrom(v);if(c)impTry(c);else impMsg("No Meal Plan Found",1)};
 $("impM").addEventListener("paste",function(e){var it=(e.clipboardData&&e.clipboardData.items)||[];for(var i=0;i<it.length;i++)if(it[i].type.indexOf("image/")==0){e.preventDefault();impImage(it[i].getAsFile());return}});
 function parseShare(code){try{var d=JSON.parse(b64d(code));if(!d||!Array.isArray(d.p))return null;
  var p=[];d.p.slice(0,60).forEach(function(x){if(x&&BYID[x[0]]&&idx2(p,x[0])<0)p.push({id:x[0],s:Math.max(1,Math.min(24,x[1]|0||4)),d:0,c:!!x[2]})});
