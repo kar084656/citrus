@@ -3,7 +3,7 @@
 :root{--bg:#f8f6ff;--fg:#1c1830;--mut:#6a6585;--card:#fff;--bd:#e0dcf5;--ac:#6d3fd6;--acf:#fff;--chip:#eeeaff}
 @media(prefers-color-scheme:dark){:root{--bg:#12101c;--fg:#ece9fa;--mut:#a29cc0;--card:#1c1a2b;--bd:#342f4d;--ac:#a58bff;--acf:#14102a;--chip:#26233b}}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif}
-header{position:fixed;top:calc(26px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1200px;z-index:9;border-radius:22px;border:0;padding:9px;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}header h1{margin-left:10px}header input[type=search],header input,header button{border-radius:13px}
+header h1{margin-left:10px}header input[type=search],header input,header button{border-radius:13px}
 .bar{max-width:1200px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center;min-height:40px}
 h1{font-size:1.25rem;margin:0 8px 0 0}
 input[type=search],select,button,textarea{font-family:inherit;font-size:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
@@ -28,19 +28,19 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 .add svg{display:block}
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
-main{padding-bottom:120px}
-.view{display:block}.view>main{display:none}.view.on>main{display:block}.view>header{opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}.view.on>header{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease}.view.on{padding-top:calc(var(--hh,58px) + 26px + env(safe-area-inset-top,0px))}
+main{padding-bottom:190px}
+.view{display:block}.view>main{display:none}.view.on>main{display:block}#hdrs{display:grid;padding:9px 9px 2px}#hdrs>header{grid-area:1/1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}#hdrs>header.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease}.tabs{position:relative;display:flex}.view.on{padding-top:env(safe-area-inset-top,0px)}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
-nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 24px);z-index:9;display:flex;overflow:hidden;border-radius:22px;border:0;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
-nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:none;text-align:center;padding:16px 12px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
+nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));width:calc(100% - 24px);max-width:460px;z-index:9;display:flex;flex-direction:column;overflow:hidden;border-radius:22px;border:0;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
+nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:1;text-align:center;padding:14px 8px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
 nav a i[hidden]{display:none}nav a.on{color:var(--ac)}
 @media(max-width:380px){nav a{padding-left:8px;padding-right:8px}}
 @media(max-width:340px){nav a{padding-left:6px;padding-right:6px;font-size:.9rem}}
-header::after,nav::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:3}
-nav::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w,0);transform:translateX(var(--x,0));background:#ebe5fb;border-radius:22px;z-index:0;pointer-events:none}
-nav.ready::before{transition:transform .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1)}
-@media(prefers-color-scheme:dark){nav::before{background:#2d2949}}
-@media(prefers-reduced-motion:reduce){nav.ready::before{transition:none}}
+nav::after{content:"";position:absolute;inset:0;border-radius:inherit;padding:2px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;z-index:3}
+.tabs::before{content:"";position:absolute;left:0;top:0;bottom:0;width:var(--w,0);transform:translateX(var(--x,0));background:#ebe5fb;border-radius:22px;z-index:0;pointer-events:none}
+.tabs.ready::before{transition:transform .32s cubic-bezier(.4,0,.2,1),width .32s cubic-bezier(.4,0,.2,1)}
+@media(prefers-color-scheme:dark){.tabs::before{background:#2d2949}}
+@media(prefers-reduced-motion:reduce){.tabs.ready::before{transition:none}}
 nav a i{position:relative;top:-1px;margin-left:6px;display:inline-block;background:var(--ac);color:var(--acf);border-radius:99px;font-style:normal;font-size:.7rem;min-width:18px;padding:0 5px;line-height:18px}
 .add{position:absolute;top:6px;right:6px;border-radius:50%;width:34px;height:34px;padding:0;display:flex;align-items:center;justify-content:center;line-height:0;background:rgba(255,255,255,.92);color:#222;border:0;font-weight:600}.add.in{background:var(--ac);color:var(--acf)}
 .day{margin:18px 0 6px;font-size:.95rem;color:var(--mut);text-transform:uppercase;letter-spacing:.04em}
@@ -88,15 +88,15 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px;height:84px;resize:none}#impM .or{margin:0 0 10px;font-size:.85rem;color:var(--mut)}#impMsg{min-height:1.2em;margin:10px 0 0;font-size:.85rem;color:var(--mut)}#impMsg.err{color:#c0392b}.mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
 </style></head><body>
-<div id="v-recipes" class="view on"><header><div class="bar">
+<div id="v-recipes" class="view on">
+<main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
+<div id="v-meals" class="view"><main id="mealsBody"></main></div>
+<div id="v-groceries" class="view"><main id="grocBody"></main></div>
+<nav><div id="hdrs"><header id="h-recipes" class="on"><div class="bar">
 <span class="qw"><input id="q" type="search" placeholder="Search…" aria-label="Search"><button id="qx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span>
 <button id="shuf">Shuffle</button><button id="clr">A-Z</button>
 </div>
-</header>
-<main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
-<div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="impP">Load</button><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
-<div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><span class="qw"><input id="gq" type="search" placeholder="Search…" aria-label="Search ingredients"><button id="gqx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span></div></header><main id="grocBody"></main></div>
-<nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
+</header><header id="h-meals" class="mh"><div class="bar"><h1>Meals</h1><button id="impP">Load</button><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><header id="h-groceries" class="mh"><div class="bar"><h1>Groceries</h1><span class="qw"><input id="gq" type="search" placeholder="Search…" aria-label="Search ingredients"><button id="gqx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span></div></header></div><div class="tabs"><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></div></nav>
 <div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><div id="shareFlash">Copied</div><div class="tip" id="shareTip"><div>Click QR Code To Copy Link</div><div>Right-Click QR Code To Download Image</div></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace</button><button id="loadMerge">Merge</button></div></div></div>
 <div id="impM" class="mdl"><div class="pn"><div id="impFlash">No Meal Plan Loaded</div><h2>Load A Plan</h2><textarea id="impTxt" placeholder="Paste A Meal Plan Link&#10;Paste A Meal Plan QR Code" aria-label="Meal plan link"></textarea><div class="or">- Or -</div><div class="acts"><button id="impImg" type="button">Choose QR Code</button></div><div id="impMsg" aria-live="polite"></div><input id="impFile" type="file" accept="image/*" hidden></div></div>
@@ -167,11 +167,11 @@ function groc(){
  return {by:by,count:cnt,total:Object.keys(M).length}}
 function isDone(o){return o.ids.length>0&&o.ids.every(function(id){var i=idx(id);return i>=0&&!!plan[i].c})}
 function amt(o){if(!o.n)return "";return fr(o.n)+(o.u?" "+plural(o.u,o.n):"")}
-function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();toTop();slideNav();setHH()}
+function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v);$("h-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();toTop();slideNav();setHH()}
 function toTop(){window.scrollTo(0,0);}
 function setHH(){var h=document.querySelector(".view.on header");if(h)document.documentElement.style.setProperty("--hh",h.offsetHeight+"px")}
-function slideNav(){var n=document.querySelector("nav"),a=n&&n.querySelector("a.on");if(!a)return;n.style.setProperty("--x",a.offsetLeft+"px");n.style.setProperty("--w",a.offsetWidth+"px")}
-window.addEventListener("resize",function(){slideNav();setHH()});window.addEventListener("load",function(){slideNav();setHH();requestAnimationFrame(function(){document.querySelector("nav").classList.add("ready")})});
+function slideNav(){var n=document.querySelector(".tabs"),a=n&&n.querySelector("a.on");if(!a)return;n.style.setProperty("--x",a.offsetLeft+"px");n.style.setProperty("--w",a.offsetWidth+"px")}
+window.addEventListener("resize",function(){slideNav();setHH()});window.addEventListener("load",function(){slideNav();setHH();requestAnimationFrame(function(){document.querySelector(".tabs").classList.add("ready")})});
 function route(){var h=(location.hash||"#recipes").slice(1);if(h.indexOf("s=")==0){var c=h.slice(2);try{history.replaceState(null,"",location.href.split("#")[0]+"#meals")}catch(e){}h="meals";setTimeout(function(){offerLoad(c)},0)}view(h=="meals"||h=="groceries"?h:"recipes")}
 window.addEventListener("hashchange",route);
 (function(){var TABS=["recipes","meals","groceries"],sx=0,sy=0,st=0,ok=false;
