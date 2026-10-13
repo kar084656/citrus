@@ -1,10 +1,9 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#f8f6ff" media="(prefers-color-scheme: light)"><meta name="theme-color" content="#12101c" media="(prefers-color-scheme: dark)"><title>Citrus</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Citrus</title><link rel="icon" href="favicon.ico" sizes="any"><link rel="icon" type="image/svg+xml" href="assets/icons/favicon.svg"><link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png"><link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
 <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/icon-512.png"><style>
 :root{--bg:#f8f6ff;--fg:#1c1830;--mut:#6a6585;--card:#fff;--bd:#e0dcf5;--ac:#6d3fd6;--acf:#fff;--chip:#eeeaff}
 @media(prefers-color-scheme:dark){:root{--bg:#12101c;--fg:#ece9fa;--mut:#a29cc0;--card:#1c1a2b;--bd:#342f4d;--ac:#a58bff;--acf:#14102a;--chip:#26233b}}
-body{padding-top:calc(5px + env(safe-area-inset-top,0px))}body::before{content:"";position:fixed;top:env(safe-area-inset-top,0px);left:0;right:0;height:5px;z-index:8;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de)}body::after{content:"";position:fixed;top:0;left:0;right:0;height:env(safe-area-inset-top,0px);z-index:9;background:var(--bg);pointer-events:none}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif}
-header{position:fixed;top:calc(5px + env(safe-area-inset-top,0px));left:0;right:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px}
+body{border-top:5px solid transparent;border-image:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de) 1}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif}
+header{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));left:50%;transform:translateX(-50%);width:calc(100% - 24px);max-width:1200px;z-index:9;border-radius:22px;border:1px solid var(--bd);padding:8px 10px;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}header h1{margin-left:8px}
 .bar{max-width:1200px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 h1{font-size:1.25rem;margin:0 8px 0 0}
 input[type=search],select,button,textarea{font-family:inherit;font-size:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
@@ -30,7 +29,7 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
 main{padding-bottom:120px}
-.view{display:none}.view.on{display:block}.view.on>main{position:fixed;left:0;right:0;bottom:0;top:calc(5px + env(safe-area-inset-top,0px) + var(--hh,62px));max-width:none;margin:0;box-sizing:border-box;padding:14px max(16px,calc((100% - 1200px)/2)) 120px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}html,body{overflow:hidden}
+.view{display:none}.view.on{display:block;padding-top:calc(var(--hh,58px) + 22px)}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 24px);z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
 nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:none;text-align:center;padding:16px 12px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
@@ -131,7 +130,7 @@ function draw(top){
  $("br").textContent=L.length;
  $("empty").style.display=L.length?"none":"block";
  shown=Math.min(st.lim,L.length);$("grid").innerHTML=L.slice(0,shown).map(card).join("");moreUI()}
-if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&$("v-recipes").classList.contains("on"))more()},{root:$("v-recipes").querySelector("main"),rootMargin:"900px"});io.observe($("more"))}
+if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&$("v-recipes").classList.contains("on"))more()},{rootMargin:"900px"});io.observe($("more"))}
 $("grid").onclick=function(e){var a=e.target.closest(".add");if(a){togglePlan(a.dataset.id);var on=inPlan(a.dataset.id);a.classList.toggle("in",on);a.innerHTML=on?CK:PLUS;return}};
 $("more").onclick=more;
 function qSync(){$("qx").hidden=!$("q").value}
@@ -168,7 +167,7 @@ function groc(){
 function isDone(o){return o.ids.length>0&&o.ids.every(function(id){var i=idx(id);return i>=0&&!!plan[i].c})}
 function amt(o){if(!o.n)return "";return fr(o.n)+(o.u?" "+plural(o.u,o.n):"")}
 function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();toTop();slideNav();setHH()}
-function toTop(){window.scrollTo(0,0);var v=document.querySelectorAll(".view>main");for(var i=0;i<v.length;i++)v[i].scrollTop=0}
+function toTop(){window.scrollTo(0,0);}
 function setHH(){var h=document.querySelector(".view.on header");if(h)document.documentElement.style.setProperty("--hh",h.offsetHeight+"px")}
 function slideNav(){var n=document.querySelector("nav"),a=n&&n.querySelector("a.on");if(!a)return;n.style.setProperty("--x",a.offsetLeft+"px");n.style.setProperty("--w",a.offsetWidth+"px")}
 window.addEventListener("resize",function(){slideNav();setHH()});window.addEventListener("load",function(){slideNav();setHH();requestAnimationFrame(function(){document.querySelector("nav").classList.add("ready")})});
