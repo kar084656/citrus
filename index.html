@@ -14,9 +14,9 @@ button.on,.chip.on{background:var(--ac);color:var(--acf);border-color:var(--ac)}
 .chip{font-size:.88rem;border:1px solid var(--bd);background:var(--chip);border-radius:99px;padding:3px 11px;cursor:pointer;color:var(--fg)}
 main{max-width:1200px;margin:0 auto;padding:14px 16px 60px}
 #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
-.card{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:12px;overflow:hidden;display:flex;flex-direction:column}
+.card{position:relative;background:var(--card);border:1px solid var(--bd);border-radius:12px;display:flex;flex-direction:column}
 .card a{color:inherit;text-decoration:none;display:flex;flex-direction:column;flex:1}
-.card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--chip)}
+.card img{border-radius:11px 11px 0 0;width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--chip)}
 header,header *,.vh,.vh *,header input::placeholder{text-transform:capitalize}header input{text-transform:none}header .qw{position:relative;display:flex;flex:1 1 60px;min-width:0}
 header #q,header #gq{flex:1 1 auto;width:100%;min-width:0}
 #qx,#gqx{display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);width:20px;height:20px;min-width:0;padding:0;border:0;border-radius:50%;background:rgba(120,118,140,.6);align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
@@ -24,7 +24,7 @@ header #q,header #gq{flex:1 1 auto;width:100%;min-width:0}
 header #impP,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{flex:none;padding-left:7px;padding-right:7px}
 header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitalize}.card .t{padding:9px 11px 4px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .m{padding:0 11px 10px;color:var(--mut);font-size:.82rem;margin-top:auto}
-.card:hover{border-color:var(--ac)}
+.card::after{content:"";position:absolute;inset:-1px;border-radius:inherit;padding:1px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;opacity:0;z-index:2}.card:hover::after{opacity:1}
 .add svg{display:block}
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
