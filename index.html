@@ -87,6 +87,9 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl input{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px}
 .mdl textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px;height:84px;resize:none}#impM .or{margin:0 0 10px;font-size:.85rem;color:var(--mut)}#impMsg{min-height:1.2em;margin:10px 0 0;font-size:.85rem;color:var(--mut)}#impMsg.err{color:#c0392b}.mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
+nav header button{position:relative}
+nav header button::after,nav header .qw::after,nav .tabs a::after{content:"";position:absolute;inset:-1px;border-radius:13px;padding:1px;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);pointer-events:none;opacity:0;z-index:2}
+@media(hover:hover){nav header button:hover::after,nav header .qw:hover::after,nav .tabs a:hover::after{opacity:1}}
 </style></head><body>
 <div id="v-recipes" class="view on">
 <main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
