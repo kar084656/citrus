@@ -2,9 +2,9 @@
 <link rel="apple-touch-icon" sizes="512x512" href="assets/icons/icon-512.png"><style>
 :root{--bg:#f8f6ff;--fg:#1c1830;--mut:#6a6585;--card:#fff;--bd:#e0dcf5;--ac:#6d3fd6;--acf:#fff;--chip:#eeeaff}
 @media(prefers-color-scheme:dark){:root{--bg:#12101c;--fg:#ece9fa;--mut:#a29cc0;--card:#1c1a2b;--bd:#342f4d;--ac:#a58bff;--acf:#14102a;--chip:#26233b}}
-body{border-top:5px solid transparent;border-image:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de) 1}
+body{padding-top:5px}body::before{content:"";position:fixed;top:0;left:0;right:0;height:5px;z-index:8;background:linear-gradient(90deg,#ff00ff,#7e6dee,#03d7de)}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.45 "Helvetica Neue",Helvetica,Arial,sans-serif}
-header{position:sticky;top:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px}
+header{position:fixed;top:5px;left:0;right:0;z-index:5;background:var(--bg);border-bottom:1px solid var(--bd);padding:10px 16px}
 .bar{max-width:1200px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 h1{font-size:1.25rem;margin:0 8px 0 0}
 input[type=search],select,button,textarea{font-family:inherit;font-size:inherit;color:var(--fg);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:8px 10px}
@@ -30,7 +30,7 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
 main{padding-bottom:120px}
-.view{display:none}.view.on{display:block}
+.view{display:none}.view.on{display:block;padding-top:var(--hh,62px)}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 24px);z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
 nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:none;text-align:center;padding:16px 12px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
@@ -167,9 +167,10 @@ function groc(){
  return {by:by,count:cnt,total:Object.keys(M).length}}
 function isDone(o){return o.ids.length>0&&o.ids.every(function(id){var i=idx(id);return i>=0&&!!plan[i].c})}
 function amt(o){if(!o.n)return "";return fr(o.n)+(o.u?" "+plural(o.u,o.n):"")}
-function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();window.scrollTo(0,0);slideNav()}
+function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();window.scrollTo(0,0);slideNav();setHH()}
+function setHH(){var h=document.querySelector(".view.on header");if(h)document.documentElement.style.setProperty("--hh",h.offsetHeight+"px")}
 function slideNav(){var n=document.querySelector("nav"),a=n&&n.querySelector("a.on");if(!a)return;n.style.setProperty("--x",a.offsetLeft+"px");n.style.setProperty("--w",a.offsetWidth+"px")}
-window.addEventListener("resize",slideNav);window.addEventListener("load",function(){slideNav();requestAnimationFrame(function(){document.querySelector("nav").classList.add("ready")})});
+window.addEventListener("resize",function(){slideNav();setHH()});window.addEventListener("load",function(){slideNav();setHH();requestAnimationFrame(function(){document.querySelector("nav").classList.add("ready")})});
 function route(){var h=(location.hash||"#recipes").slice(1);if(h.indexOf("s=")==0){var c=h.slice(2);try{history.replaceState(null,"",location.href.split("#")[0]+"#meals")}catch(e){}h="meals";setTimeout(function(){offerLoad(c)},0)}view(h=="meals"||h=="groceries"?h:"recipes")}
 window.addEventListener("hashchange",route);
 $("t-recipes").onclick=function(e){e.preventDefault();location.hash="recipes"};
