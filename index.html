@@ -30,7 +30,7 @@ header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitaliz
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
 main{padding-bottom:120px}
-.view{display:none}.view.on{display:block;position:fixed;left:0;right:0;bottom:0;top:calc(5px + env(safe-area-inset-top,0px) + var(--hh,62px));overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}html,body{overflow:hidden}
+.view{display:none}.view.on{display:block}.view.on>main{position:fixed;left:0;right:0;bottom:0;top:calc(5px + env(safe-area-inset-top,0px) + var(--hh,62px));max-width:none;margin:0;box-sizing:border-box;padding:14px max(16px,calc((100% - 1200px)/2)) 120px;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;overscroll-behavior:contain}html,body{overflow:hidden}
 .vh{max-width:1200px;margin:0 auto;padding:14px 16px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
 nav{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(22px + env(safe-area-inset-bottom));width:max-content;max-width:calc(100% - 24px);z-index:9;display:flex;overflow:hidden;border-radius:22px;border:1px solid var(--bd);background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
 nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:none;text-align:center;padding:16px 12px 15px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
@@ -131,7 +131,7 @@ function draw(top){
  $("br").textContent=L.length;
  $("empty").style.display=L.length?"none":"block";
  shown=Math.min(st.lim,L.length);$("grid").innerHTML=L.slice(0,shown).map(card).join("");moreUI()}
-if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&$("v-recipes").classList.contains("on"))more()},{root:$("v-recipes"),rootMargin:"900px"});io.observe($("more"))}
+if("IntersectionObserver" in window){io=new IntersectionObserver(function(es){if(es[0].isIntersecting&&$("v-recipes").classList.contains("on"))more()},{root:$("v-recipes").querySelector("main"),rootMargin:"900px"});io.observe($("more"))}
 $("grid").onclick=function(e){var a=e.target.closest(".add");if(a){togglePlan(a.dataset.id);var on=inPlan(a.dataset.id);a.classList.toggle("in",on);a.innerHTML=on?CK:PLUS;return}};
 $("more").onclick=more;
 function qSync(){$("qx").hidden=!$("q").value}
@@ -168,7 +168,7 @@ function groc(){
 function isDone(o){return o.ids.length>0&&o.ids.every(function(id){var i=idx(id);return i>=0&&!!plan[i].c})}
 function amt(o){if(!o.n)return "";return fr(o.n)+(o.u?" "+plural(o.u,o.n):"")}
 function view(v){["recipes","meals","groceries"].forEach(function(x){$("v-"+x).classList.toggle("on",x==v);$("t-"+x).classList.toggle("on",x==v)});if(v=="meals")drawMeals();if(v=="groceries")drawGroc();toTop();slideNav();setHH()}
-function toTop(){window.scrollTo(0,0);var v=document.querySelectorAll(".view");for(var i=0;i<v.length;i++)v[i].scrollTop=0}
+function toTop(){window.scrollTo(0,0);var v=document.querySelectorAll(".view>main");for(var i=0;i<v.length;i++)v[i].scrollTop=0}
 function setHH(){var h=document.querySelector(".view.on header");if(h)document.documentElement.style.setProperty("--hh",h.offsetHeight+"px")}
 function slideNav(){var n=document.querySelector("nav"),a=n&&n.querySelector("a.on");if(!a)return;n.style.setProperty("--x",a.offsetLeft+"px");n.style.setProperty("--w",a.offsetWidth+"px")}
 window.addEventListener("resize",function(){slideNav();setHH()});window.addEventListener("load",function(){slideNav();setHH();requestAnimationFrame(function(){document.querySelector("nav").classList.add("ready")})});
