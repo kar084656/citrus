@@ -18,9 +18,9 @@ main{max-width:1200px;margin:0 auto;padding:14px 16px 60px}
 .card a{color:inherit;text-decoration:none;display:flex;flex-direction:column;flex:1}
 .card img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;background:var(--chip)}
 header,header *,.vh,.vh *,header input::placeholder{text-transform:capitalize}header input{text-transform:none}header .qw{position:relative;display:flex;flex:1 1 60px;min-width:0}
-header #q{flex:1 1 auto;width:100%;min-width:0}
-#qx{display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);width:20px;height:20px;min-width:0;padding:0;border:0;border-radius:50%;background:rgba(120,118,140,.6);align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
-@media(hover:none),(pointer:coarse){header #q{padding-right:34px}#qx:not([hidden]){display:flex}#q::-webkit-search-cancel-button{-webkit-appearance:none;display:none}}header #shuf,header #clr,header #clrS{flex:none;padding-left:7px;padding-right:7px}header .bar{gap:6px}header #q,header #shuf,header #clr,header #clrS,header #impP,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{height:40px;box-sizing:border-box;padding-top:0;padding-bottom:0}
+header #q,header #gq{flex:1 1 auto;width:100%;min-width:0}
+#qx,#gqx{display:none;position:absolute;right:8px;top:50%;transform:translateY(-50%);width:20px;height:20px;min-width:0;padding:0;border:0;border-radius:50%;background:rgba(120,118,140,.6);align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+@media(hover:none),(pointer:coarse){header #q,header #gq{padding-right:34px}#qx:not([hidden]),#gqx:not([hidden]){display:flex}#q::-webkit-search-cancel-button,#gq::-webkit-search-cancel-button{-webkit-appearance:none;display:none}}header #shuf,header #clr,header #clrS{flex:none;padding-left:7px;padding-right:7px}header .bar{gap:6px}header #q,header #gq,header #shuf,header #clr,header #clrS,header #impP,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{height:40px;box-sizing:border-box;padding-top:0;padding-bottom:0}
 header #impP,header #shareP,header #clrP,header #hideDone,header #copyG,header #printG,header #unchk{flex:none;padding-left:7px;padding-right:7px}
 header.mh h1{flex:1}.card .t,.card .m,.row .nm,.gn,.pan{text-transform:capitalize}.card .t{padding:9px 11px 4px;font-weight:600;line-height:1.3;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .card .m{padding:0 11px 10px;color:var(--mut);font-size:.82rem;margin-top:auto}
@@ -95,7 +95,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 </header>
 <main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
 <div id="v-meals" class="view"><header class="mh"><div class="bar"><h1>Meals</h1><button id="impP">Load</button><button id="shareP">Share</button><button id="clrP">Clear</button></div></header><main id="mealsBody"></main></div>
-<div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1></div></header><main id="grocBody"></main></div>
+<div id="v-groceries" class="view"><header class="mh"><div class="bar"><h1>Groceries</h1><span class="qw"><input id="gq" type="search" placeholder="Search…" aria-label="Search ingredients"><button id="gqx" type="button" aria-label="Clear search" hidden><svg viewBox="0 0 12 12" width="10" height="10" aria-hidden="true"><path d="M2.5 2.5l7 7M9.5 2.5l-7 7" stroke="#fff" stroke-width="1.8" stroke-linecap="round" fill="none"/></svg></button></span></div></header><main id="grocBody"></main></div>
 <nav><a href="index.html#recipes" id="t-recipes">Recipes<i id="br"></i></a><a href="#meals" id="t-meals">Meals<i id="bm">0</i></a><a href="#groceries" id="t-groceries">Groceries<i id="bg">0</i></a></nav>
 <div id="shareM" class="mdl"><div class="pn"><h2>Share this plan</h2><p id="shareNote"></p><div class="qr" id="shareQR"></div><div id="shareFlash">Copied</div><div class="tip" id="shareTip"><div>Click QR Code To Copy Link</div><div>Right-Click QR Code To Download Image</div></div></div></div>
 <div id="loadM" class="mdl"><div class="pn"><h2>Load shared plan?</h2><p id="loadNote"></p><div class="acts"><button id="loadRep">Replace</button><button id="loadMerge">Merge</button></div></div></div>
@@ -199,9 +199,14 @@ function drawGroc(){
  var h='';
  var A=[["Produce",[0]],["Meat & seafood",[1]],["Dairy & eggs",[2]],["Frozen items",[5]],["Pantry items",[6,8]],["Pasta & rice",[]],["Canned items",[4]],["Other",[3,7]]];var GI={0:0,1:1,2:2,5:3,6:4,8:4,3:7,4:6,7:7},BK=[[],[],[],[],[],[],[],[]];Object.keys(g.by).forEach(function(ax){g.by[ax].forEach(function(o){var gi=GI[ax];if(/\bbeans?\b/i.test(o.nm)&&!/^frozen/i.test(o.nm))gi=0;else if(/\bbroth\b/i.test(o.nm)||/\b(sauce|salsa|pesto|vinaigrette|dressing|ketchup|mustard|mayo|mayonnaise|relish|tahini|hummus|aioli|paste|olives?)\b/i.test(o.nm))gi=4;else if(/\b(shrimp|prawns?|sole|salmon|tuna|cod|tilapia|halibut|scallops?|anchov(y|ies)|trout|haddock|mahi|sardines?|mackerel|crab|lobster|fish|seafood)\b/i.test(o.nm))gi=1;else if(/\b(pasta|noodles?|couscous|gnocchi|tortellini|ravioli)\b/i.test(o.nm)||(/\brice\b/i.test(o.nm)&&!/vinegar/i.test(o.nm)))gi=5;BK[gi].push(o)})});
  for(var a=0;a<A.length;a++){var L=BK[a];if(!L.length)continue;L.sort(function(x,y){return x.nm.toLowerCase()<y.nm.toLowerCase()?-1:1});
-  var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;rows+='<div class="g'+(d?" done":"")+'"><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></div>'});
+  var rows="";L.forEach(function(o){var d=isDone(o);if(hideDone&&d)return;if(gS&&o.nm.toLowerCase().indexOf(gS)<0)return;rows+='<div class="g'+(d?" done":"")+'"><span class="gq">'+esc(amt(o))+'</span><span class="gn">'+esc(o.nm)+'<small>'+(o.from.length>1?o.from.map(function(m,i){var j=idx(o.fid[i]);return '<span class="mi2'+(j>=0&&plan[j].c?' cd':'')+'">'+esc(m)+'</span>'}).join(''):esc(o.from[0]))+'</small></span></div>'});
   if(rows)h+='<h3 class="aisle">'+A[a][0]+'</h3>'+rows}
- el.innerHTML=h;alignQ()}
+ if(!h&&gS)h='<div class="emptyv">No ingredients match</div>';el.innerHTML=h;alignQ()}
+var gS="";function gSync(){$("gqx").hidden=!$("gq").value}
+$("gq").oninput=function(){gS=this.value.toLowerCase().trim();gSync();drawGroc()};
+$("gq").onkeydown=function(e){if(e.key=="Enter")this.blur()};
+$("gqx").onmousedown=function(e){e.preventDefault()};
+$("gqx").onclick=function(){var q=$("gq");q.value="";gS="";gSync();drawGroc();q.focus()};
 function alignQ(){var el=$("grocBody"),q=el.querySelectorAll(".gq");if(!q.length||!el.offsetWidth)return;var w=0,i;for(i=0;i<q.length;i++){q[i].style.width="auto"}for(i=0;i<q.length;i++){w=Math.max(w,q[i].getBoundingClientRect().width)}w=Math.min(w,el.clientWidth*.42);for(i=0;i<q.length;i++){q[i].style.width=w+"px"}}
 window.addEventListener("resize",alignQ);
 
