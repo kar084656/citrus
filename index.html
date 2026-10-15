@@ -86,7 +86,6 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl input{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px}
 .mdl textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px;height:84px;resize:none}#impM .or{margin:0 0 10px;font-size:.85rem;color:var(--mut)}#impMsg{min-height:1.2em;margin:10px 0 0;font-size:.85rem;color:var(--mut)}#impMsg.err{color:#c0392b}.mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
-nav.kb{bottom:10px}
 header input:focus,header input:focus-visible{outline:none;box-shadow:none}
 </style></head><body>
 <div id="v-recipes" class="view on">
@@ -272,6 +271,6 @@ m.addEventListener("click",function(e){if(e.target===m)close()});
 document.getElementById("rx").onclick=close;
 document.addEventListener("keydown",function(e){if(e.key=="Escape"&&m.classList.contains("open"))close()})})();
 (function(){var vv=window.visualViewport,nv=document.querySelector("nav");if(!vv||!nv)return;
- function f(){var k=Math.max(0,Math.round(window.innerHeight-vv.height-vv.offsetTop));if(k<80)k=0;nv.style.setProperty("--kb",k+"px");nv.classList.toggle("kb",k>0)}
+ function f(){var k=Math.max(0,Math.round(window.innerHeight-vv.height-vv.offsetTop));if(k<80)k=0;nv.style.setProperty("--kb",k+"px");}
  vv.addEventListener("resize",f);vv.addEventListener("scroll",f);f()})();
 </script></body></html>
