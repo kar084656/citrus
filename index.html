@@ -28,9 +28,9 @@ header.mh h1{flex:1}#h-meals .bar{justify-content:center;gap:9px;flex-wrap:nowra
 #empty{display:none;text-align:center;color:var(--mut);padding:40px}
 #more{display:block;margin:20px auto}
 
-.view{display:block}.view>main{display:none}.view.on>main{display:block}#hdrs{display:grid;padding:9px 9px 0}#hdrs>header{grid-area:1/1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}#hdrs>header.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease}.tabs{position:relative;display:flex;gap:9px;padding:9px}.view.on{padding-top:calc(var(--nh,107px) + 5px)}
+.view{display:block}.view>main{display:none}.view.on>main{display:block}#hdrs{display:grid;padding:9px 9px 0}#hdrs>header{grid-area:1/1;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility 0s linear .2s}#hdrs>header.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .2s ease}.tabs{position:relative;display:flex;gap:9px;padding:9px}.view.on{padding-top:calc(var(--nh,107px) + 4px)}
 .vh{max-width:1200px;margin:0 auto;padding:14px 14px 0;display:flex;gap:8px;align-items:center;flex-wrap:wrap}.vh h1{flex:1}
-nav{position:fixed;left:50%;transform:translateX(-50%);top:5px;width:calc(100% - 28px);max-width:460px;z-index:9;display:flex;flex-direction:column;overflow:hidden;border-radius:22px;border:0;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
+nav{position:fixed;left:50%;transform:translateX(-50%);top:4px;width:calc(100% - 28px);max-width:460px;z-index:9;display:flex;flex-direction:column;overflow:hidden;border-radius:22px;border:0;background:rgba(255,255,255,.72);background:color-mix(in srgb,var(--card) 70%,transparent);-webkit-backdrop-filter:blur(16px) saturate(1.6);backdrop-filter:blur(16px) saturate(1.6);box-shadow:0 8px 28px rgba(40,25,90,.18)}
 nav a{-webkit-tap-highlight-color:transparent;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;outline:none;z-index:1;flex:1;text-align:center;display:flex;align-items:center;justify-content:center;height:40px;padding:0 8px;white-space:nowrap;color:var(--mut);text-decoration:none;font-size:1rem;position:relative}
 nav a i[hidden]{display:none}nav a.on{color:var(--ac)}
 @media(max-width:380px){nav a{padding-left:8px;padding-right:8px}}
@@ -87,7 +87,7 @@ button:disabled{opacity:.45;cursor:not-allowed}
 .mdl textarea{width:100%;box-sizing:border-box;font:inherit;font-size:.8rem;color:var(--fg);background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:8px 10px;margin-bottom:10px;height:84px;resize:none}#impM .or{margin:0 0 10px;font-size:.85rem;color:var(--mut)}#impMsg{min-height:1.2em;margin:10px 0 0;font-size:.85rem;color:var(--mut)}#impMsg.err{color:#c0392b}.mdl .acts{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
 .mdl .acts button{width:auto;height:40px;padding:0 14px}
 header input:focus,header input:focus-visible{outline:none;box-shadow:none}
-.emptyv.emptyc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - var(--nh,107px) - 33px);min-height:calc(100dvh - var(--nh,107px) - 33px);margin-bottom:-60px;padding:0 14px}
+.emptyv.emptyc{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:calc(100vh - var(--nh,107px) - 32px);min-height:calc(100dvh - var(--nh,107px) - 32px);margin-bottom:-60px;padding:0 14px}
 </style></head><body>
 <div id="v-recipes" class="view on">
 <main><div id="grid"></div><div id="empty">No recipes match. Try a different search.</div><button id="more" style="display:none">Show more</button></main></div>
